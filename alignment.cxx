@@ -126,7 +126,6 @@ RoughFeatureAlignment::getPFHFeatures(PointCloud::Ptr cloud, NormalCloud::Ptr no
 
   // Compute the features
   pfh.compute (*pfhs);
-
   // pfhs->points.size () should have the same size as the input cloud->points.size ()*
 	return pfhs;
 }
@@ -134,7 +133,7 @@ RoughFeatureAlignment::getPFHFeatures(PointCloud::Ptr cloud, NormalCloud::Ptr no
 
 //---------Estimates point normals using points within radius------------
 NormalCloud::Ptr 
-RoughFeatureAlignment::getPointNormals(PointCloud::Ptr cloud, int K)
+RoughFeatureAlignment::getPointNormals(PointCloud::Ptr cloud, double radius)
 {
   // Create the normal estimation class, and pass the input dataset to it
   pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> ne;
@@ -160,8 +159,8 @@ RoughFeatureAlignment::getPointNormals(PointCloud::Ptr cloud, int K)
   pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal>());
 
   // Use all neighbors in a sphere of radius 3cm
-  //ne.setRadiusSearch (radius);
-  ne.setKSearch(K);
+  ne.setRadiusSearch (radius);
+  //ne.setKSearch(K);
 
   // Compute the features
   ne.compute (*cloud_normals);

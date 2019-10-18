@@ -37,7 +37,18 @@ void util::trimClouds(PointCloud::Ptr A, PointCloud::Ptr B, pcl::Correspondences
   } 
 }
 
+void loadPCDFile(std::string filename,pcl::PointCloud<pcl::PointXYZ>::Ptr cloud){
 
+      if (pcl::io::loadPCDFile<pcl::PointXYZ> (filename, *cloud) == -1) //* load the file
+        {
+                PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
+                    return;
+                      }
+      std::cout << "Loaded "
+                  << cloud->width * cloud->height
+                              << " data points from test_pcd.pcd with the following fields: "
+                                          << std::endl;
+}
 //load cloud into pointer - does PCD and PLY files
 util::PointCloud::Ptr util::loadCloud(const string& name)
 {
@@ -48,7 +59,8 @@ util::PointCloud::Ptr util::loadCloud(const string& name)
     reader.read(name, *cloud);
   }
   else if(ext=="pcd"){
-    pcl::io::loadPCDFile(name, *cloud);
+    //pcl::io::loadPCDFile(name, *cloud);
+    loadPCDFile(name, cloud);
   }
   return cloud;
 }

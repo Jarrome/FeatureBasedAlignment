@@ -14,12 +14,12 @@ int main(int argc, char* argv[])
   PointCloud::Ptr tgtCloud = util::loadCloud(argv[2]);
   cout<<"IR Cloud: "<<*srcCloud<<endl;
   cout<<"EO Cloud: "<<*tgtCloud<<endl;
-
   RoughFeatureAlignment rfa; 
-  NormalCloud::Ptr srcNormals = rfa.getPointNormals(srcCloud);
-  NormalCloud::Ptr tgtNormals = rfa.getPointNormals(tgtCloud);
-  PFHCloud::Ptr srcPFH = rfa.getPFHFeatures(srcCloud, srcNormals);
-  PFHCloud::Ptr tgtPFH = rfa.getPFHFeatures(tgtCloud, tgtNormals);
+  NormalCloud::Ptr srcNormals = rfa.getPointNormals(srcCloud, 0.1);
+  NormalCloud::Ptr tgtNormals = rfa.getPointNormals(tgtCloud, 0.1);
+  PFHCloud::Ptr srcPFH = rfa.getPFHFeatures(srcCloud, srcNormals, 15);
+  PFHCloud::Ptr tgtPFH = rfa.getPFHFeatures(tgtCloud, tgtNormals, 15);
+
 
   //save correspondences
   pcl::CorrespondencesPtr corrs = rfa.estimateCorrespondances<pcl::FPFHSignature33>(srcPFH, tgtPFH);

@@ -10,16 +10,6 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 #necessary libs
-set(pcl_libs
-    ${PCL_COMMON_LIBRARIES} 
-    ${PCL_IO_LIBRARIES} 
-    ${PCL_KD_TREE_LIBRARY} 
-    ${PCL_REGISTRATION_LIBRARY}
-    ${PCL_SEARCH_LIBRARY}
-    ${PCL_FEATURES_LIBRARY}
-    ${PCL_VISUALIZATION_LIBRARY}
- )
-
 
 ################################
 #Alignment library
@@ -30,7 +20,7 @@ set(alignment_sources
     util.h                      util.cxx
     )
 add_library(pcl_alignment ${alignment_sources})
-target_link_libraries(pcl_alignment ${pcl_libs})
+target_link_libraries(pcl_alignment  ${PCL_LIBRARIES})
 
 ################################
 #Executables

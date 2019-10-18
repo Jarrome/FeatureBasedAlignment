@@ -40,10 +40,10 @@ class RoughFeatureAlignment {
     pcl::CorrespondencesPtr getTrimmedCorrespondences() { return trimmedCorrs_; }
  
     //----- Takes in an xyz point cloud and normal cloud and spits out PFH Feature cloud --------
-    PFHCloud::Ptr getPFHFeatures(PointCloud::Ptr cloud, NormalCloud::Ptr normals, int K=60);
+    PFHCloud::Ptr getPFHFeatures(PointCloud::Ptr cloud, NormalCloud::Ptr normals, int K=15);
 
     //---------Estimates point normals using points within radius------------
-    NormalCloud::Ptr getPointNormals(PointCloud::Ptr cloud, int K=45);
+    NormalCloud::Ptr getPointNormals(PointCloud::Ptr cloud, double radius=0.1);
 
     //--------- estimate correspondances ----------------
     template <typename T>
@@ -59,7 +59,7 @@ class RoughFeatureAlignment {
     {
       pcl::IterativeClosestPoint<T, T> icp;
       // Set the input source and target
-      icp.setInputCloud(irCloud);
+      icp.setInputSource(irCloud);
       icp.setInputTarget(eoCloud);
 
       // Set the max correspondence distance to 5cm (e.g., correspondences with higher distances will be ignored)
@@ -102,7 +102,7 @@ RoughFeatureAlignment::estimateCorrespondances(typename pcl::PointCloud<T>::Ptr&
   cout<<"Tar cloud: "<<*targetPts<<endl;
   pcl::registration::CorrespondenceEstimation<T,T> ce;
   ce.setInputTarget(targetPts);
-  ce.setInputCloud(sourcePts);
+  ce.setInputSource(sourcePts);
   pcl::CorrespondencesPtr corr(new pcl::Correspondences());
   ce.determineCorrespondences(*corr);
 
