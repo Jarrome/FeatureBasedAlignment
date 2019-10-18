@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(3D_REGISTRATION)
 #find pcl libraries
-find_package(PCL 1.4 REQUIRED)
+
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -march=native")
+
+find_package(PCL 1.7 REQUIRED)
 #include files
 include_directories(${PCL_INCLUDE_DIRS})
 #lib files
@@ -25,10 +28,10 @@ target_link_libraries(pcl_alignment  ${PCL_LIBRARIES})
 ################################
 #Executables
 add_executable(align align_exe.cxx)
-target_link_libraries(align pcl_alignment ${pcl_libs})
+target_link_libraries(align pcl_alignment  ${PCL_LIBRARIES})
 
 add_executable(corrs save_correspondences.cxx)
-target_link_libraries(corrs pcl_alignment ${pcl_libs})
+target_link_libraries(corrs pcl_alignment  ${PCL_LIBRARIES})
 
 add_executable(visualize visualize.cxx)
 target_link_libraries(visualize pcl_alignment ${pcl_libs})
