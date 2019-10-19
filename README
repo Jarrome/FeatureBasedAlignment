@@ -1,3 +1,7 @@
+I cannot run the align, it always got segfault in correspondence rejection computation no matter what rejector I use.
+
+---
+
 Feature Based Alignment
 
 Some programs to roughly align two point clouds representing the same underlying geometry.
