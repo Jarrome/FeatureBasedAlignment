@@ -1,4 +1,5 @@
-I cannot run the align, it always got segfault in correspondence rejection computation no matter what rejector I use.
+In 1.7.2: I cannot run the align, it always got segfault in correspondence rejection computation no matter what rejector I use.
+In 1.9.1: I can use the align, but to avoid the compile error, I deleted the sac_non_rigid and correspondence_procrustes and use the official api instead
 
 ---
 

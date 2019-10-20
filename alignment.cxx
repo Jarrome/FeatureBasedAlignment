@@ -6,7 +6,8 @@
 #include <pcl/features/fpfh.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/registration/ia_ransac.h>
-#include "correspondence_procrustes.h"
+#include <pcl/registration/correspondence_rejection_sample_consensus.h>
+//#include "correspondence_procrustes.h"
 #include <iostream>
 #include <algorithm>
 
@@ -67,10 +68,11 @@ Eigen::Matrix4f RoughFeatureAlignment::align(PointCloud::Ptr irCloud,
 
   //----- Correspondence rejection ---------
   cout<<"Rejecting correspondences"<<endl;
-  pcl::registration::CorrespondenceRejectorProcrustes<PointXYZ> sac;
-  sac.setInputCloud(scaledIR);
-  sac.setTargetCloud(eoCloud);
-  sac.setMaxIterations(1000);
+  pcl::registration::CorrespondenceRejectorSampleConsensus<PointXYZ> sac;
+  sac.setInputSource(scaledIR);
+  sac.setInputTarget(eoCloud);
+  
+  sac.setMaximumIterations(1000);
   sac.setInlierThreshold(20);//5.0 for geo downtown, .5 for hemenways....
   sac.setInputCorrespondences(corrs);
   pcl::CorrespondencesPtr newCorrs(new pcl::Correspondences());
