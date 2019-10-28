@@ -1,5 +1,8 @@
-In 1.7.2: I cannot run the align, it always got segfault in correspondence rejection computation no matter what rejector I use.
-In 1.9.1: I can use the align, but to avoid the compile error, I deleted the sac_non_rigid and correspondence_procrustes and use the official api instead
+The requirement that does not cause getFeature-segfault, correspondenceRejectorRandomConsensus-segfault.
+
+1. eigen: 3.2.9 from source
+2. vtk: 5.10.1 apt-get version libvtk5-dev
+3. until then, pcl: 1.7.2 from source
 
 ---
 
